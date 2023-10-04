@@ -2,70 +2,69 @@ const COHORT = "REPLACE_ME!";
 const API_URL = `https://fsa-async-await.herokuapp.com/api/${COHORT}/artists`;
 
 const state = {
-  artists: [],
+  party: [],
 };
 
-const artistList = document.querySelector("#artists");
+const partyList = document.querySelector("#party");
 
-const addArtistForm = document.querySelector("#addArtist");
-addArtistForm.addEventListener("submit", addArtist);
+const addpartyForm = document.querySelector("#addParty");
+addpartyForm.addEventListener("submit", addparty);
 
 /**
  * Sync state with the API and rerender
  */
 async function render() {
-  await getArtists();
-  renderArtists();
+  await getparty();
+  renderparty();
 }
 render();
 
-/**
- * Update state with artists from API
- */
-async function getArtists() {
-  // TODO async function getArtists() {
+
+ 
+async functionGet(Getparty) {
+  
      try {
         const response = await fetch(API_URL);
         const json = await response.json();
-        state.artists = json.data;
+        state.party = json.data;
       } catch (error) {
         console.error(error);
       }
     }
-
+  
 
 /**
- * Render artists from state
+ * Render 
  */
-function renderArtists() {
-    function renderArtists() {
-        if (!state.artists.length) {
-          artistList.innerHTML = "<li>No artists.</li>";
+function renderparty() {
+    function renderparty() {
+        if (!state.party.length) {
+          partyList.innerHTML = "<li>No party.</li>";
           return;
         }
    
-        const artistCards = state.artists.map((artist) => {
+        const partyCards = state.party.map((party) => {
           const li = document.createElement("li");
           li.innerHTML = `
-            <h2>${artist.name}</h2>
-            <img src="${artist.imageUrl}" alt="${artist.name}" />
+            <h2>${party.name}</h2>
+            <img src="${artist.imageUrl}" alt="${party.name}" />
             <p>${artist.description}</p>
           `;
           return li;
         });
    
-        artistList.replaceChildren(...artistCards);
+        partyList.replaceChildren(...partyCards);
       }
 }
 
 /**
- * Ask the API to create a new artist based on form data
+
  * @param {Event} event
  */
-function addArtist(event) {
+function addparty(event) {
   event.preventDefault();
 
-  async function addArtist(event) {
+  async function addparty(event) {
     event.preventDefault();
 
     try {
@@ -73,14 +72,14 @@ function addArtist(event) {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          name: addArtistForm.name.value,
-          imageUrl: addArtistForm.imageUrl.value,
-          description: addArtistForm.description.value,
+          name: addpartyForm.name.value,
+          imageUrl: addpartyForm.imageUrl.value,
+          description: addApartyForm.description.value,
         }),
       });
 
       if (!response.ok) {
-        throw new Error("Failed to create artist");
+        throw new Error("Failed to create party");
       }
 
       render();
